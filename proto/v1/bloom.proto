@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package bloom.v1;
+
+import "proto/v1/common/utils.proto";
+
+message OTPRequest {
+  string user_id = 1;
+  string method = 2; // SMS, Email
+}
+
+message OTPResponse {
+  string otp_id = 1;
+  bool success = 2;
+}
+
+message VerifyOTPRequest {
+  string otp_id = 1;
+  string otp_code = 2;
+}
+
+message VerifyOTPResponse {
+  bool verified = 1;
+}
+
+service MFAService {
+  rpc SendOTP(OTPRequest) returns (OTPResponse);
+  rpc VerifyOTP(VerifyOTPRequest) returns (VerifyOTPResponse);
+}
